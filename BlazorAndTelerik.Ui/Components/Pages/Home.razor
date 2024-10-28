@@ -1,0 +1,135 @@
+﻿@page "/"
+@rendermode RenderMode.InteractiveServer
+
+<PageTitle>Home</PageTitle>
+
+<h1>Blazor</h1>
+
+<div id="text">
+    <p>
+        Текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст
+        текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст 
+        текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст
+        текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст
+        текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст
+        текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст
+        текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст
+        текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст
+        текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст
+        текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст
+    </p>
+</div>
+
+<div id="inputText">
+    <p>
+        Поле для ввода текста<br />
+        <InputText @bind-Value="resultText" />
+    </p>
+    <p id="result">Резултат: @resultText</p>
+</div>
+<div id="int">
+    <p>
+        Поле для ввода чисел<br />
+        <InputNumber @bind-Value="resultInt" />
+    </p>
+    <p id="result">Результат: @resultInt</p>
+</div>
+<div id="date">
+    <p>
+        Поле для ввода даты<br />
+        <InputDate @bind-Value="resultDate" />
+    </p>
+    <p id="result">Результат: @resultDate.ToString()</p>
+</div>
+<div id="checkbox">
+    <p>
+        Проверка CheckBox<br />
+        <InputCheckbox @bind-Value="resultCheckBox" />
+    </p>
+    <p id="result">Результат: @resultCheckBox.ToString()</p>
+</div>
+<div id="radio">
+    <p>
+        Проверка RadioButtons<br />
+        <InputRadioGroup @bind-Value="resultRadio">
+            @foreach(var radio in listRadio)
+            {
+                <InputRadio Value="@radio" />@radio<br />
+            }
+        </InputRadioGroup>
+    </p>
+    <p id="result">Результат: @resultRadio</p>
+</div>
+<div id="combo">
+    <p>
+        Проверка СomboBox<br />
+        <InputSelect @bind-Value="resultSelect" multiple >
+            @foreach(var select in listSelect)
+            {
+                <option value="@select">@select</option>
+            }
+        </InputSelect>
+    </p>
+    <p id="result">Результат: @resultSelect </p>
+</div>
+
+@code {
+    public string resultText = String.Empty;
+    public int resultInt;
+    public DateTime resultDate = DateTime.Now;
+    public bool resultCheckBox;
+    public string resultRadio = String.Empty;
+    List<string> listRadio = ["1", "2", "3", "4", "5"];
+    public string resultSelect = String.Empty;
+    List<string> listSelect = ["1", "2", "3", "4", "5"];
+}
+
+<style>
+    #text {
+        padding: 10px;
+        background-color: #eee;
+    }
+
+        #text p {
+            font-size: 18px;
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 150%;
+            text-align: justify;
+            text-indent: 40px;
+            color: darkcyan;
+        }
+
+    #inputText {
+        padding: 10px;
+        background-color: #ccc;
+    }
+
+    #int {
+        padding: 10px;
+        background-color: #eee;
+    }
+
+    #date {
+        padding: 10px;
+        background-color: #ccc;
+    }
+
+    #checkbox {
+        padding: 10px;
+        background-color: #eee;
+    }
+
+    #radio {
+        padding: 10px;
+        background-color: #ccc;
+    }
+
+    #combo {
+        padding: 10px;
+        background-color: #eee;
+    }
+
+    #result {
+        font-size: 20px;
+    }
+</style>

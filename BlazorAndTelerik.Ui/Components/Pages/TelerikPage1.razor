@@ -1,0 +1,231 @@
+﻿@page "/telerik1"
+@rendermode RenderMode.InteractiveServer
+
+
+<PageTitle>Telerik page 1</PageTitle>
+<TelerikRootComponent>
+    <h1>Telerik page 1</h1>
+    <div id="buttonTelerik">
+        <p>Button Telerik</p>
+        <TelerikButton ThemeColor="@ThemeConstants.Button.ThemeColor.Primary" 
+            OnClick="@SayHelloHandler">Say Hello</TelerikButton>
+        <p>@HelloString</p>
+    </div>
+    <div id="dateTelerik">
+        <p>Date Telerik</p>
+        <TelerikDateInput @bind-Value="@DateValue"
+                          Format="dd MMMM yyyy"
+                          Min="@MinDate"
+                          Max="@MaxDate"
+                          AutoSwitchKeys="@AutoSwitchKeys"
+                          Width="200px">
+        </TelerikDateInput><br/>
+        <TelerikDatePicker @bind-Value="DatePickerValue"
+                           Format="dd MMMM yyyy"
+                           Min="@MinDate"
+                           Max="@MaxDate"
+                           Width="200px">
+        </TelerikDatePicker><br />
+        <TelerikTimePicker @bind-Value="@selectedTime" 
+                           Min="@Min" 
+                           Max="@Max" 
+                           Format="hh:mm:ss tt"
+                           Width="200px">
+
+        </TelerikTimePicker>><br />
+        <TelerikCalendar Min="@MinDate" Max="@MaxDate" @bind-Date="@theDate">
+        </TelerikCalendar>
+    </div>
+    <div id="checkBoxTelerik">
+        <p>CheckBox Telerik</p>
+        <TelerikCheckBox Id="testCheckBox" @bind-Value="@isSelected" />
+        <label for="testCheckBox">@isSelected</label><br />
+        <TelerikSwitch @bind-Value="@isSelectedSwitch" />
+        <label>@isSelectedSwitch</label>
+    </div>
+    <div id="comboBoxTelerik">
+        <p>ComboBox Telerik</p>
+        <TelerikComboBox Data="@ComboBoxData"
+                         @bind-Value="@SelectedItem"
+                         Placeholder="Тест"
+                         Width="240px">
+            <ComboBoxSettings>
+                <ComboBoxPopupSettings Height="auto" MaxHeight="200px" MinHeight="75px" />
+            </ComboBoxSettings>
+        </TelerikComboBox>
+    </div>
+    <div id="tableInputTelerik">
+        <p>Table Telerik</p>
+        <p>
+            Code:<br />
+            <TelerikTextBox @bind-Value="@CodeText" Width="200px" />
+        </p>
+        <p>
+            Name:<br />
+            <TelerikTextBox @bind-Value="@Name" Width="200px"/>
+        </p>
+        <p>
+            Comments:<br />
+            <TelerikTextBox @bind-Value="@Comments" Width="200px" />
+        </p>
+        <p>
+            Begin Date:<br />
+            <TelerikDatePicker @bind-Value="BeginDate"
+                               Format="dd MMMM yyyy"
+                               Min="@MinDate"
+                               Max="@MaxDate"
+                               Width="200px">
+            </TelerikDatePicker>
+        </p>
+        <p>
+            End Date:<br />
+            <TelerikDatePicker @bind-Value="EndDate"
+                               Format="dd MMMM yyyy"
+                               Min="@MinDate"
+                               Max="@MaxDate"
+                               Width="200px">
+            </TelerikDatePicker>
+        </p>
+        <TelerikButton ThemeColor="@ThemeConstants.Button.ThemeColor.Light"
+                       OnClick="@Add">Add</TelerikButton>
+    </div>
+    <div id="tableTelerik">
+        <TelerikTreeList Data="@TestTreeList"
+                         IdField="@nameof(Dictionary.Id)"
+                         Pageable="true"
+                         Sortable="true"
+                         FilterMode="@TreeListFilterMode.FilterMenu">
+            <TreeListColumns>
+                <TreeListColumn Field="Code"/>
+                <TreeListColumn Field="Name"/>
+                <TreeListColumn Field="Comments"/>
+                <TreeListColumn Field="BeginDate" Title="Begin Date" />
+                <TreeListColumn Field="EndDate" Title="End Date" />
+            </TreeListColumns>
+        </TelerikTreeList>
+    </div>
+</TelerikRootComponent>
+
+@code {
+    private MarkupString HelloString { get; set; }
+    private Dictionary newDict = new Dictionary();
+    private bool isSelected { get; set; }
+    private bool isSelectedSwitch { get; set; }
+    private List<string> ComboBoxData { get; set; } = [ "1", "2", "3", "4", "5"];
+    private string SelectedItem { get; set; } = String.Empty;
+    List<Dictionary> TestTreeList { get; set; }
+    private DateTime DatePickerValue { get; set; } = DateTime.Today;
+    private DateTime DateValue { get; set; } = DateTime.Now;
+    private DateTime MinDate { get; set; } = DateTime.Now.AddYears(-50);
+    private DateTime MaxDate { get; set; } = DateTime.Now.AddYears(50);
+    private List<object> AutoSwitchKeys { get; set; } = new List<object>() { ".", "/", " " };
+    private DateTime? selectedTime = DateTime.Now;
+    public DateTime Min = new DateTime(1900, 1, 1, 8, 0, 0);
+    public DateTime Max = new DateTime(1900, 1, 1, 17, 0, 0);
+    public int Id { get; set; }
+    public DateTime BeginDate { get; set; }
+    public DateTime EndDate { get; set; }
+    public string CodeText { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Comments { get; set; } = string.Empty;
+    private DateTime theDate { get; set; } = DateTime.Now;
+
+
+    private void SayHelloHandler()
+    {
+        string msg = $"Hello from <strong>Telerik UI for Blazor</strong> at {DateTime.Now.ToString("HH:mm:ss")}!" +
+            "<br /> Now you can use C# to write front-end!";
+
+        HelloString = new MarkupString(msg);
+    }
+
+    protected override void OnInitialized()
+    {
+        TestTreeList = new List<Dictionary>
+        {
+            new Dictionary
+            {
+                Id=1,
+                BeginDate=DateTime.Now,
+                EndDate=DateTime.MinValue,
+                Code="1",
+                Name="Test1",
+                Comments="Comment1"
+            },
+            new Dictionary
+            {
+                Id=1,
+                BeginDate=DateTime.Now,
+                EndDate=DateTime.MinValue,
+                Code="2",
+                Name="Test2",
+                Comments="Comment2"
+            },
+            new Dictionary
+            {
+                Id=1,
+                BeginDate=DateTime.Now,
+                EndDate=DateTime.MinValue,
+                Code="3",
+                Name="Test3",
+                Comments="Comment3"
+            },
+        };
+        base.OnInitialized();
+    }
+    private void Add()
+    {
+        TestTreeList.Add(new Dictionary
+        {
+            Id = 1,
+            BeginDate = BeginDate,
+            EndDate = EndDate,
+            Code = CodeText,
+            Name = Name,
+            Comments = Comments
+        });
+    }
+
+
+    public class Dictionary
+    {
+        public int Id { get; set; }
+        public DateTime BeginDate { get; set; } = DateTime.Now;
+        public DateTime EndDate { get; set; } = DateTime.MaxValue;
+        public string Code { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public string Comments { get; set; } = string.Empty;
+    }
+}
+
+<style>
+    #buttonTelerik {
+        padding: 10px;
+        background-color: #ccc;
+    }
+
+    #dateTelerik {
+        padding: 10px;
+        background-color: #eee;
+    }
+
+    #checkBoxTelerik {
+        padding: 10px;
+        background-color: #ccc;
+    }
+
+    #comboBoxTelerik {
+        padding: 10px;
+        background-color: #eee;
+    }
+
+    #tableInputTelerik{
+        padding: 10px;
+        background-color: #ccc;
+    
+    }
+    #tableTelerik {
+        padding: 10px;
+        background-color: #eee;
+    }
+</style>
