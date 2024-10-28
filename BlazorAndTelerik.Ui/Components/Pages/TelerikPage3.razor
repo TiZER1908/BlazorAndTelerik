@@ -1,0 +1,151 @@
+﻿@page "/telerik3"
+@rendermode RenderMode.InteractiveServer
+
+
+<PageTitle>Telerik page 3</PageTitle>
+<TelerikRootComponent>
+    <h1>Telerik page 3</h1>
+    <div id="slider">
+        <h6>Slider Telerik</h6>
+        <TelerikSlider @bind-Value="@Volume"
+               Min="0"
+               Max="100"
+               SmallStep="1"
+               LargeStep="20"
+               Width="400px">
+        </TelerikSlider>
+        <TelerikArcGauge>
+            <ArcGaugePointers>
+                <ArcGaugePointer Value="@Volume" />
+            </ArcGaugePointers>
+        </TelerikArcGauge>
+        <TelerikCircularGauge Width="100px" Height="100px">
+
+            <CircularGaugePointers>
+                <CircularGaugePointer Value="@Volume" Size="10" />
+            </CircularGaugePointers>
+
+            <CircularGaugeCenterLabel>
+                <Template>
+                    <label id=volume>@Volume</label>
+                </Template>
+            </CircularGaugeCenterLabel>
+
+        </TelerikCircularGauge>
+    </div>
+    <div id="diagrams">
+        <h6>Diagrams Telerik</h6>
+        <TelerikChart Width="800px">
+            <ChartSeriesItems>
+                <ChartSeries Type="ChartSeriesType.Bar" Name="Product 1" Data="@series1Data">
+                </ChartSeries>
+                <ChartSeries Type="ChartSeriesType.Bar" Name="Product 2" Data="@series2Data">
+                </ChartSeries>
+            </ChartSeriesItems>
+
+            <ChartCategoryAxes>
+                <ChartCategoryAxis Categories="@xAxisItems"></ChartCategoryAxis>
+            </ChartCategoryAxes>
+
+            <ChartTitle Text="Гистограмма"></ChartTitle>
+
+            <ChartLegend Position="ChartLegendPosition.Right">
+            </ChartLegend>
+        </TelerikChart>
+        <TelerikChart Width="1200px">
+            <ChartSeriesItems>
+                <ChartSeries Type="ChartSeriesType.Area" Name="Product 1" Data="@series1Data">
+                </ChartSeries>
+                <ChartSeries Type="ChartSeriesType.Area" Name="Product 2" Data="@series2Data">
+                </ChartSeries>
+            </ChartSeriesItems>
+
+            <ChartCategoryAxes>
+                <ChartCategoryAxis Categories="@xAxisItems"></ChartCategoryAxis>
+            </ChartCategoryAxes>
+
+            <ChartTitle Text="Диаграмма области"></ChartTitle>
+
+            <ChartLegend Position="Telerik.Blazor.ChartLegendPosition.Right">
+            </ChartLegend>
+        </TelerikChart>
+        <TelerikChart Width="1000px">
+            <ChartSeriesItems>
+                <ChartSeries Type="ChartSeriesType.Line" Name="Product 1" Data="@series1Data">
+                </ChartSeries>
+                <ChartSeries Type="ChartSeriesType.Line" Name="Product 2" Data="@series2Data">
+                </ChartSeries>
+            </ChartSeriesItems>
+
+            <ChartCategoryAxes>
+                <ChartCategoryAxis Categories="@xAxisItems"></ChartCategoryAxis>
+            </ChartCategoryAxes>
+
+            <ChartTitle Text="Точечная диаграмма"></ChartTitle>
+
+            <ChartLegend Position="ChartLegendPosition.Right">
+            </ChartLegend>
+        </TelerikChart>
+        <TelerikChart Width="500px">
+            <ChartSeriesItems>
+                <ChartSeries Type="ChartSeriesType.Pie" Data="@pieData"
+                             Field="@nameof(MyPieChartModel.SegmentValue)" CategoryField="@nameof(MyPieChartModel.SegmentName)">
+                </ChartSeries>
+            </ChartSeriesItems>
+
+            <ChartTitle Text="Круговая диаграмма"></ChartTitle>
+
+            <ChartLegend Position="ChartLegendPosition.Right">
+            </ChartLegend>
+        </TelerikChart>
+    </div>
+
+</TelerikRootComponent>
+
+
+@code {
+    int Volume { get; set; } = 33;
+    public List<object> series1Data = new List<object>() { 2, 6, 7, 4 };
+    public List<object> series2Data = new List<object>() { 3, 4, 1, 4 };
+    public string[] xAxisItems = new string[] { "Q1", "Q2", "Q3", "Q4" };
+    public List<MyPieChartModel> pieData = new List<MyPieChartModel>
+    {
+        new MyPieChartModel
+        {
+            SegmentName = "Product 1",
+            SegmentValue = 2
+        },
+        new MyPieChartModel
+        {
+            SegmentName = "Product 2",
+            SegmentValue = 3
+        },
+        new MyPieChartModel
+        {
+            SegmentName = "Product 3",
+            SegmentValue = 4
+        }
+    };
+
+    public class MyPieChartModel
+    {
+        public string SegmentName { get; set; }
+        public double SegmentValue { get; set; }
+    }
+}
+
+<style>
+    #volume {
+        font-weight: bold;
+        font-size: 30px
+    }
+
+    #slider {
+        padding: 10px;
+        background-color: #ccc;
+    }
+    #diagrams{
+        padding: 10px;
+        background-color: #eee;
+    }
+</style>

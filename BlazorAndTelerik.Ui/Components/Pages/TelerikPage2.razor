@@ -14,7 +14,7 @@
         <h6>Radio Buttons Telerik</h6>
         <TelerikRadioGroup Data="@GenderOptions"
                            @bind-Value="@ChosenGender"
-                           ValueField="@nameof(GenderModel.GenderId)"
+                           ValueField="@nameof(GenderModel.GenderText)"
                            TextField="@nameof(GenderModel.GenderText)">
         </TelerikRadioGroup>
         <p>Выбранный пол: @ChosenGender</p>
@@ -73,7 +73,7 @@
 @code {
     public List<MenuItem> MenuItems { get; set; }
 
-    int ChosenGender { get; set; }
+    string ChosenGender { get; set; }
 
     List<GenderModel> GenderOptions { get; set; } = new List<GenderModel>
     {

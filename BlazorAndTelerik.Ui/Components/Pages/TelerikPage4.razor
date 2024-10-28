@@ -1,0 +1,164 @@
+﻿@page "/telerik4"
+@rendermode RenderMode.InteractiveServer
+
+
+<PageTitle>Telerik page 4</PageTitle>
+<TelerikRootComponent>
+    <TelerikAppBar>
+        <AppBarSection>
+            <a id="link" href="/">ТФОМС АО</a>
+        </AppBarSection>
+
+        <AppBarSpacer></AppBarSpacer>
+
+        <AppBarSection>
+            <a id="link" href="/">Blazor</a>
+        </AppBarSection>
+
+        <AppBarSeparator></AppBarSeparator>
+
+        <AppBarSection>
+            <span>Our Mission</span>
+        </AppBarSection>
+
+        <AppBarSeparator></AppBarSeparator>
+
+        <AppBarSection>
+            <a id="link" href="/telerik1">Telerik</a>
+        </AppBarSection>
+
+        <AppBarSpacer></AppBarSpacer>
+
+        <AppBarSection>
+            <TelerikSvgIcon Icon="@SvgIcon.User"></TelerikSvgIcon>
+        </AppBarSection>
+
+        <AppBarSeparator></AppBarSeparator>
+
+        <AppBarSection>
+            <TelerikSvgIcon Icon="@SvgIcon.Logout"></TelerikSvgIcon>
+        </AppBarSection>
+    </TelerikAppBar>
+
+    <h1>Telerik page 4</h1>
+
+    <div id="div-container">
+        <h6>Animation Container Telerik</h6>
+        <TelerikButton OnClick="@ToggleAnimationContainer">Нажми меня</TelerikButton>
+
+        <TelerikAnimationContainer @ref="@TAC"
+                                   AnimationType="@AnimationType.ZoomIn"
+                                   Width="100px"
+                                   Top="200px"
+                                   Left="400px">
+            <div id="container">
+                Привет :)
+            </div>
+        </TelerikAnimationContainer>
+    </div>
+    <div id="div-dialog">
+        <h6>Dialog Telerik</h6>
+        <TelerikButton OnClick="@GetVisible">Нажми меня</TelerikButton>
+
+        <TelerikDialog @bind-Visible="@Visible"
+                       Title="@Title">
+            <DialogContent>
+                <p id="dialog">
+                    Текст текст текст текст текст текст текст текст<br /> 
+                    текст текст текст текст текст текст текст текст<br />
+                    текст текст текст текст текст текст текст текст
+                </p>
+            </DialogContent>
+            <DialogButtons>
+                <TelerikButton OnClick="@(() => { Visible = false; })">Выход</TelerikButton>
+            </DialogButtons>
+        </TelerikDialog>
+    </div>
+    <div id="div-window">
+        <h6>Windows Telerik</h6>
+        <TelerikButton OnClick="@( () => WindowIsVisible = true )">Нажми меня</TelerikButton>
+        <TelerikWindow @bind-Visible="@WindowIsVisible">
+            <WindowTitle>
+                Window Title
+            </WindowTitle>
+            <WindowContent>
+                Window Content ...
+            </WindowContent>
+            <WindowActions>
+                <WindowAction Name="Close" />
+            </WindowActions>
+            <WindowFooter>
+                Window Footer Content ...
+            </WindowFooter>
+        </TelerikWindow>
+    </div>
+    <div id ="div-progress">
+        <h6>Progress Bar Telerik</h6>
+        <TelerikSlider @bind-Value="@PBValue"
+                       Min="0"
+                       Max="100"
+                       SmallStep="1"
+                       LargeStep="20"
+                       Width="400px">
+        </TelerikSlider>
+        <p></p>
+        <TelerikProgressBar Max="@MaxValue" Value="@PBValue" />
+    </div>
+</TelerikRootComponent>
+
+@code {
+    private TelerikAnimationContainer TAC { get; set; }
+    private bool Visible { get; set; } = false;
+    bool WindowIsVisible { get; set; } = false;
+    private string Title { get; set; } = "Тест диалогового окна";
+    public double MaxValue { get; set; } = 100;
+    public double PBValue { get; set; } = 10;
+
+    private async Task ToggleAnimationContainer()
+    {
+        await TAC.ToggleAsync();
+    }
+    private void GetVisible()
+    {
+        Visible = true;
+    }
+}
+
+<style>
+    #link {
+        color: white;
+    }
+    #container{
+        padding: 1em;
+        color: #fff;
+        background: #282f89;
+        text-align: center;
+    }
+    #dialog{
+        font-size: 18px;
+        font-family: 'Times New Roman', Times, serif;
+        line-height: 150%;
+        text-align: center;
+    }
+
+    #div-container{
+        padding: 10px;
+        background-color: #ccc;
+    }
+
+    #div-dialog{
+        padding: 10px;
+        background-color: #eee;
+    }
+
+    #div-window{
+        padding: 10px;
+        background-color: #ccc;
+    }
+
+    #div-progress{
+        padding: 10px;
+        background-color: #eee;
+    }
+
+</style>

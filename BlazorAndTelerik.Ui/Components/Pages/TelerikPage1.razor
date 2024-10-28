@@ -8,7 +8,9 @@
     <div id="buttonTelerik">
         <p>Button Telerik</p>
         <TelerikButton ThemeColor="@ThemeConstants.Button.ThemeColor.Primary" 
-            OnClick="@SayHelloHandler">Say Hello</TelerikButton>
+            OnClick="@SayHelloHandler">
+            <TelerikBadge>1</TelerikBadge>
+            Say Hello</TelerikButton>
         <p>@HelloString</p>
     </div>
     <div id="dateTelerik">
